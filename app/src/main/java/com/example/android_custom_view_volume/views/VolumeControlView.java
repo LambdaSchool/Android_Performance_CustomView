@@ -5,6 +5,8 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.media.AudioManager;
+import android.os.Debug;
+import android.os.Trace;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -18,7 +20,7 @@ public class VolumeControlView extends View {
     protected int outerColor, innerColor, knobColor, rotationAngle, volumeIncrement;
     float centerX, centerY, outerRadius, innerRadius, knobRadius, knobDistanceFromCenter;
     double startRotationAngle;
-    boolean clockwise, atBottomStop, atTopStop;
+    boolean clockwise, atBottomStop, atTopStop, settingsFlag;
     AudioManager audioManager;
 
 
@@ -46,6 +48,7 @@ public class VolumeControlView extends View {
         outerCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         innerCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         knobCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        settingsFlag = false;
 
         audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
         int streamMaxVolume = audioManager.getStreamMaxVolume(audioManager.STREAM_MUSIC);
@@ -60,23 +63,27 @@ public class VolumeControlView extends View {
             knobColor = typedArray.getResourceId(R.styleable.VolumeControlView_knob_color, R.color.colorAccent);
             typedArray.recycle();
         }
+        outerCirclePaint.setColor(getResources().getColor(outerColor));
+        innerCirclePaint.setColor(getResources().getColor(innerColor));
+        knobCirclePaint.setColor(getResources().getColor(knobColor));
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+//        Trace.beginSection("myOnDrawMethod");
+//        Debug.startMethodTracing("myOnDrawMethod");
         super.onDraw(canvas);
 
-        centerX = getWidth() / 2f;
-        centerY = getHeight() / 2f;
-        outerRadius = (centerX < centerY ? centerX : centerY) * 0.9f;
-        innerRadius = (centerX < centerY ? centerX : centerY) * 0.75f;
-        knobDistanceFromCenter = (centerX < centerY ? centerX : centerY) * .55f;
-        knobRadius = knobDistanceFromCenter * 0.2f;
+        if (!settingsFlag) {
+            centerX = getWidth() / 2f;
+            centerY = getHeight() / 2f;
+            outerRadius = (centerX < centerY ? centerX : centerY) * 0.9f;
+            innerRadius = (centerX < centerY ? centerX : centerY) * 0.75f;
+            knobDistanceFromCenter = (centerX < centerY ? centerX : centerY) * .55f;
+            knobRadius = knobDistanceFromCenter * 0.2f;
+            settingsFlag = true;
+        }
 
-
-        outerCirclePaint.setColor(getResources().getColor(outerColor));
-        innerCirclePaint.setColor(getResources().getColor(innerColor));
-        knobCirclePaint.setColor(getResources().getColor(knobColor));
 
         canvas.rotate(rotationAngle, centerX, centerY);
         canvas.drawCircle(centerX, centerY, outerRadius, outerCirclePaint);
@@ -86,11 +93,13 @@ public class VolumeControlView extends View {
         canvas.drawCircle(knobCenterX, knobCenterY, knobRadius, knobCirclePaint);
 
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, rotationAngle / (volumeIncrement), 0);
-
+//        Debug.stopMethodTracing();
+//        Trace.endSection();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+//        Trace.beginSection("myOnTouchEventMethod");
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -129,6 +138,7 @@ public class VolumeControlView extends View {
             case MotionEvent.ACTION_UP:
                 break;
         }
+//        Trace.endSection();
         return true;
     }
 }
