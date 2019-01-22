@@ -16,11 +16,23 @@ Remember, to attain the desired smooth 60fps frame rate, you'll only have 16 mil
 | Description                              |                 Location                 | Time Before | Time After |
 | ---------------------------------------- | :--------------------------------------: | ----------: | ---------- |
 | removed Toast.makeText from onTouchEvent | VolumeControlView.java onTouchEvent line 101|    117ms | 2-5ms      |
-|                                          |                                          |             |            |
-|                                          |                                          |             |            |
-|                                          |                                          |             |            |
+
 #### Combined `onTouchEvent` and `onDraw` Execution Times
 Before Improvements:
 118ms
 After Improvements:
 3-6ms
+
+## Record Improvements Here
+### AsyncTasks
+### https://github.com/JoshHalvorson/Android_AsynTasks_FileIO
+| Description                              |                 Location                 | Time Before | Time After |
+| ---------------------------------------- | :--------------------------------------: | ----------: | ---------- |
+| removed updating progress bar            | MainActivity.java line 173, 174, 202 - 210, 218 - 222, 233|    32 seconds | 26 seconds|
+| stored char pos and reused it            | MainActivity.java line 185 - 200         | 26 seconds  | 22 seconds |
+
+#### Execution Times
+Before Improvements:
+32 seconds
+After Improvements:
+22 seconds
