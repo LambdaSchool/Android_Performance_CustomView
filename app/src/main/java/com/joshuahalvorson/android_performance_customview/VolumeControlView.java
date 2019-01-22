@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Trace;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -23,6 +24,7 @@ public class VolumeControlView extends View {
     protected int circleRotation = 0;
     protected int distanceTraveled = 0, circleEndPoint = 0, circleStartPoint = 0;
     protected int currentVolume;
+    protected int radius;
 
     public VolumeControlView(Context context) {
         super(context);
@@ -55,6 +57,8 @@ public class VolumeControlView extends View {
         paintSmallInnerCircle = new Paint(Paint.ANTI_ALIAS_FLAG);
         paintSmallInnerCircle.setStyle(Paint.Style.FILL);
 
+        radius = 100;
+
         if(attrs != null){
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.VolumeControlView);
             paintOuterCircle.setColor(typedArray.getColor(R.styleable.VolumeControlView_outerCircleColor, Color.BLACK));
@@ -75,6 +79,7 @@ public class VolumeControlView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        Trace.beginSection("onTouchEvent");
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 circleStartPoint = (int) event.getX();
@@ -96,21 +101,22 @@ public class VolumeControlView extends View {
                 //Log.i("circlePressed", Integer.toString(distanceTraveled));
                 break;
             case MotionEvent.ACTION_UP:
-                Toast.makeText(getContext(), "Volume is at " + currentVolume + "%", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Volume is at " + currentVolume + "%", Toast.LENGTH_SHORT).show();
                 break;
         }
+        Trace.endSection();
         return true;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        Trace.beginSection("onDraw");
         super.onDraw(canvas);
         float width = getWidth() / 2f;
         float height = getHeight() / 2f;
 
         canvas.rotate(circleRotation, width, height);
 
-        int radius = 100;
         if(width < height){
             radius = (int)(width) - EDGE_OFFSET;
         }else if (height < width){
@@ -127,6 +133,7 @@ public class VolumeControlView extends View {
                 height + (innerCircleRadius * .5f ),
                 smallInnerCircleRadius,
                 paintSmallInnerCircle);
+        Trace.endSection();
 
     }
 }
