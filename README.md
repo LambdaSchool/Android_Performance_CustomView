@@ -37,4 +37,4 @@ Before Improvements:
 After Improvements:
 22 seconds
 
-Will note, it seems the vm has a pretty hard time doing this specific task, for comparison my note 9 finished it in 2.35 seconds. Of course not all devices are gonna be a note 9 but its interesting seeing how slow the vms are.
+Will note, it seems the vm has a pretty hard time doing this specific task, for comparison my note 9 finished it in 2.35 seconds after the improvements. Of course not all devices are gonna be a note 9 but its interesting seeing how slow the vms are.
