@@ -16,11 +16,12 @@ Remember, to attain the desired smooth 60fps frame rate, you'll only have 16 mil
 | Description                              |                 Location                 | Time Before | Time After |
 | ---------------------------------------- | :--------------------------------------: | ----------: | ---------- |
 | *example* remove allocations from onDraw | VolumeControlKnob.java, onDraw, line 103 |       25 ms | 12 ms      |
-|                                          |                                          |             |            |
-|                                          |                                          |             |            |
+|                                          |      89,109,110, 129, 130                                    |             |            |
+| Changed UI commented our unnecesary item                                         |                                          |             |            |
 |                                          |                                          |             |            |
 
 #### Combined `onTouchEvent` and `onDraw` Execution Times
 Before Improvements:
-
+86ms
 After Improvements:
+1.5ms
