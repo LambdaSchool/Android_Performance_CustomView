@@ -39,6 +39,11 @@ public class VolumeControlView extends View {
         init(attrs);
     }
 
+    public VolumeControlView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init(attrs);
+    }
+
     /**
      * Rect rectangle1 = new Rect ();
      * rectangle1.top = 50;
