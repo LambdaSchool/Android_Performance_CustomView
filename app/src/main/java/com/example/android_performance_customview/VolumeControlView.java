@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Trace;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -44,20 +45,6 @@ public class VolumeControlView extends View {
         init(attrs);
     }
 
-    /**
-     * Rect rectangle1 = new Rect ();
-     * rectangle1.top = 50;
-     * rectangle1.bottom = 250;
-     * rectangle1.left= 25;
-     * rectangle1.right = 325;
-     *
-     * Paint paint1 = new Paint (Paint.ANTI_ALIAS_FLAG);
-     * paint1.setColor(Color.BLUE);
-     *
-     * canvas.drawRect(rectangle1,paint1);
-     *
-     *
-     * **/
 
 
     public void setCurrentVolume(int currentVolume) {
@@ -99,7 +86,7 @@ public class VolumeControlView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 circleStartPoint = (int) event.getX();
-                Log.d(TAG, "Action was DOWN");
+              //  Log.d(TAG, "Action was DOWN");
 
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -120,9 +107,10 @@ public class VolumeControlView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 Toast.makeText(getContext(), "Volume " + currentVolume + "%", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Action was UP");
+               // Log.d(TAG, "Action was UP");
                 break;
         }
+        Trace.endSection();
         return true;
     }
 
@@ -133,13 +121,13 @@ public class VolumeControlView extends View {
 
         paintInnerCircle = new Paint(Paint.ANTI_ALIAS_FLAG);
         paintInnerCircle.setStyle(Paint.Style.STROKE);
-        paintInnerCircle.setStrokeWidth(15);
+        paintInnerCircle.setStrokeWidth(30);
 
         paintKnob = new Paint(Paint.ANTI_ALIAS_FLAG);
         paintKnob.setStyle(Paint.Style.FILL);
         paintInnerCircle.setColor(Color.BLUE);
-        paintKnob.setColor(Color.GREEN);
-        paintOuterCircle.setColor(Color.YELLOW);
+        paintKnob.setColor(Color.YELLOW);
+        paintOuterCircle.setColor(Color.CYAN);
 
 
     }
