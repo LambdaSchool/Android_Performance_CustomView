@@ -1,26 +1,49 @@
-# Performance - Custom View
+# Android_Sprint4Challenge_MyMovies
 
-## Introduction
+### Instructions
 
-This goal of this project is to have you explore the profiling tools while improving the performance of one of your apps. One of the best showcases of these tools is with your view projects from last week.
+**Please read this entire README to make sure you understand what is expected of you before you begin.**
 
-## Instructions
+This sprint challenge is designed to ensure that you are competent with the concepts taught throughout Sprint 4.
 
-For this project, you'll fork this repo, clone it to your computer, and then place a copy of your volume control knob app from last week inside of the cloned repo. Commit and push the result. Then begin using the tools taught this week to improve the performance of the app. After that is done, you'll use these tools on another one of your apps to improve its performance as well, good candidates for this would be the AsyncTasks app and the Contacts app from sprint 6. While working on these apps, be sure to make note of the improvements that you made in the readme down below as well as the combined execution of the `onTouchEvent` and `onDraw` methods before and after updates. There are always improvements to be made in an app.
+In your solution, it is especially important that you follow best practices such as MVC and good, consistent code style. You will be scored on these aspects as well as the project MVP (minimum viable product) requirements below.
 
-Remember, to attain the desired smooth 60fps frame rate, you'll only have 16 milliseconds to draw each frame. In addition to that, you'll want to make that time as short as possible in order to prevent unforeseen circumstances from adding "jank" to your app. You'll also want to ensure your CPU and Memory usage is low.
+Fork this repository and clone your fork to your computer. Create your Android Studio project in this cloned fork repository folder, then commit and create a pull request. Commit appropriately as you work. When finished, push your final project to GitHub and comment on the pull requestto indicate that your project is complete.
 
-## Record Improvements Here
-### Volume Control Knob
+You have *3 hours*, and you should work *independently* — looking things up (search, notes) is all fair game. And questions about *process* / *logistics* (i.e. if you have a hard time opening/saving to GitHub) are fair game too.
 
-| Description                              |                 Location                 | Time Before | Time After |
-| ---------------------------------------- | :--------------------------------------: | ----------: | ---------- |
-| *example* remove allocations from onDraw | VolumeControlKnob.java, onDraw, line 103 |       25 ms | 12 ms      |
-|                                          |                                          |             |            |
-|                                          |                                          |             |            |
-|                                          |                                          |             |            |
+Good luck!
 
-#### Combined `onTouchEvent` and `onDraw` Execution Times
-Before Improvements:
+### Screen Recording
 
-After Improvements:
+This screen recording previews the look and feel of a completed project that meets the MVP requirements for this project.
+
+<img src="./myMoviesDemo_shorter.webm" width="300">
+
+## Requirements
+
+This project uses The Movie DB API. The starter project has search functionality working for you already, as that isn't the point of this Sprint Challenge. There is no need to reference the API's documentation whatsoever.
+
+The requirements for this project are as follows:
+
+1. A `FavoriteMovie` POJO object. Its members will be used to store favorite movies in your SQL database and allow users to add movies to their favorites and mark them as watched.
+
+   > This will be your only local storage of movies, so you'll want to include anything you wish to  display to the user like the title
+
+2. A `MainActivity` that allows a user to:
+
+   1. Enter a search parameter and pass it to `MovieApiDao.searchMovies` and view a list of results (this must be done in a separate thread).
+
+   2. Select movies for favorites (store these in SQL db)
+
+   3. Navigate to the favorites page
+
+3. A `FavoritesActivity` that allows a user to:
+
+   1. View a list of saved movies from the SQLite db
+
+   2. Mark individual movies as watched or not
+
+   3. Remove movies from the favorites list
+
+4. All of the background classes we've worked with this week to facilitate database interactions. 
