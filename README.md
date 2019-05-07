@@ -13,14 +13,20 @@ Remember, to attain the desired smooth 60fps frame rate, you'll only have 16 mil
 ## Record Improvements Here
 ### Volume Control Knob
 
-| Description                              |                 Location                 | Time Before | Time After |
-| ---------------------------------------- | :--------------------------------------: | ----------: | ---------- |
-| *example* remove allocations from onDraw | VolumeControlKnob.java, onDraw, line 103 |       25 ms | 12 ms      |
-|                                          |                                          |             |            |
-|                                          |                                          |             |            |
-|                                          |                                          |             |            |
+| Description                              |                 Location                    | Time Before | Time After  |
+| ---------------------------------------- | :-----------------------------------------: | ----------: | ----------  |
+| Spun off New Threads for On Touch        | VolumeKnobView.java, OnTouchEvent, line 199 |       1.77ms|       1.04ms|
+|                                          |                                             |             |             |
+|                                          |                                             |             |             |
+|                                          |                                             |             |             |
 
 #### Combined `onTouchEvent` and `onDraw` Execution Times
 Before Improvements:
+onDraw - 0.04ms
+onTouch - 1.7ms
+Combined - 1.81ms
 
 After Improvements:
+onDraw - 0.04ms
+onTouch - 1.04ms
+Combined - 1.08ms
