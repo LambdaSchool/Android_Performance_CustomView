@@ -14,7 +14,6 @@ public class FavoritesActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     FavoritesListAdapter favoritesListAdapter;
     LinearLayoutManager linearLayoutManager;
-    ArrayList<FavoriteMovie> movies;
 
     private FavoriteMovieVM viewModel;
 

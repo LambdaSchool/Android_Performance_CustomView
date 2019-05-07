@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getFavoriteMovies(this);
 
         recyclerView = findViewById(R.id.recycler_view);
+        searchText = findViewById(R.id.search_text);
+        searchButton = findViewById(R.id.search_button);
+        favoritesButton = findViewById(R.id.favorites_button);
 
         linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -46,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
         movieListAdapter = new MovieListAdapter(allMovies, viewModel);
         recyclerView.setAdapter(movieListAdapter);
 
-        searchText = findViewById(R.id.search_text);
-        searchButton = findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        favoritesButton = findViewById(R.id.favorites_button);
         favoritesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
