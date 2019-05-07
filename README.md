@@ -16,11 +16,13 @@ Remember, to attain the desired smooth 60fps frame rate, you'll only have 16 mil
 | Description                              |                 Location                 | Time Before | Time After |
 | ---------------------------------------- | :--------------------------------------: | ----------: | ---------- |
 | *example* remove allocations from onDraw | VolumeControlKnob.java, onDraw, line 103 |       25 ms | 12 ms      |
-|                                          |                                          |             |            |
-|                                          |                                          |             |            |
+|  was using memory to create unused items | VolumeControlView.java, getCurrentVolume |     14ms    |   14ms     |
+ ----no change to time, just memory allocation
+|  moved toast to on action up             | VolumecontrolView saved having to toast  |      14ms   |   11ms     |
+----- toast being moved to the on touch up event free'd up more memory not having to toast constantly.
 |                                          |                                          |             |            |
 
 #### Combined `onTouchEvent` and `onDraw` Execution Times
-Before Improvements:
+Before Improvements: 14 ms
 
-After Improvements:
+After Improvements:  11 ms ( had already been keeping performance in mind while building app initially, shows in the code (had stopwatches built into several methods)
