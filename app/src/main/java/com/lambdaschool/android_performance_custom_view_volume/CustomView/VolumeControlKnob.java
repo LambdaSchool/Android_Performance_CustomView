@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Trace;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -23,10 +24,10 @@ public class VolumeControlKnob extends View {
     Paint paintMiddle;
     Paint paintTop;
     Paint paintKnob;
-    boolean knobMoving;
+    //boolean knobMoving;
     float rotation;
     float eventX;
-    float eventY;
+    //float eventY;
     float volume;
 
     public VolumeControlKnob(Context context) {
@@ -74,6 +75,7 @@ public class VolumeControlKnob extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+//        Trace.beginSection("onDraw");
         float canvasCenterX = getWidth() / 2f;
         float canvasCenterY = getHeight() / 2f;
         float canvasMaxRadius = (canvasCenterX < canvasCenterY ? canvasCenterX : canvasCenterY) * .98f;
@@ -86,17 +88,18 @@ public class VolumeControlKnob extends View {
         canvas.drawCircle(canvasCenterX * .62f, canvasCenterY * .62f, canvasMaxRadius * .11f, paintKnob);
 
         super.onDraw(canvas);
+//        Trace.endSection();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {        // triggered each time the touch state changes
-
+//        Trace.beginSection("onTouchEvent");
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: // triggered when view is touched
                 // get and store start point with event.getX()
                 eventX = event.getX();
                 //eventY = event.getY();
-                knobMoving = true;
+                //knobMoving = true;
 
                 break;
 
@@ -106,18 +109,17 @@ public class VolumeControlKnob extends View {
                 // apply that change to your rotation variable
                 // you may want to use a minimum and maximum rotation value to limit the rotation
                 // use the new rotation to convert to the desired volume setting
-                float distanceX = event.getX() - eventX;
+                //float distanceX = event.getX() - eventX;
                 //float distanceY = eventY - event.getY();
 
-                float changeInRotation = distanceX * 2 * ((Math.abs(VOLUME_MIN) + Math.abs(VOLUME_MAX)) / (float) getWidth());
-                rotation += changeInRotation;//distanceX;// + distanceY / 2;
+                rotation += (event.getX() - eventX) * ((Math.abs(VOLUME_MIN) + Math.abs(VOLUME_MAX)) / (float) getWidth());//distanceX;// + distanceY / 2;
                 if (rotation < VOLUME_MIN)
                     rotation = VOLUME_MIN;
                 if (rotation > VOLUME_MAX)
                     rotation = VOLUME_MAX;
 
-                volume=(rotation-VOLUME_MIN)/(float)200;
-                setVolume(rotation);
+                volume = (rotation - VOLUME_MIN) / (float) 200;
+                //setVolume(rotation);
 
                 invalidate(); // this will cause the onDraw method to be called again with your new values
                 break;
@@ -125,11 +127,12 @@ public class VolumeControlKnob extends View {
             case MotionEvent.ACTION_UP: // triggered when touch ends
 
                 //Toast.makeText(getContext(), String.valueOf(rotation), (Toast.LENGTH_LONG)).show();
-                Toast.makeText(getContext(), String.format(Locale.US, "%.0f", volume) + "%", (Toast.LENGTH_LONG)).show();
+                Toast.makeText(getContext(), volume + "%", Toast.LENGTH_SHORT).show();
 
                 break;
         }
 
+//        Trace.endSection();
         return true; // this indicates that the event has been processed
     }
 
