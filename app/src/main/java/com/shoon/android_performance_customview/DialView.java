@@ -241,9 +241,9 @@ public class DialView extends View {
 
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas) { //6.72ms => 2.2ms
         // 格子を描画する
-       drawGrid(canvas, 50);
+      // drawGrid(canvas, 50); //6.72ms
         paintDial.setColor( Color.BLACK );
         canvas.drawCircle(iCenterX, iCenterY, iDialRadius, paintDial);
 
@@ -251,16 +251,19 @@ public class DialView extends View {
 
         canvas.drawCircle(iCenterX, iCenterY, iDialRadius-200, paintDial);
         // 円を描画する
-        canvas.drawCircle(fX, fY, iDotRaidus, paintDot);    // (6)
-  //debug purpose
+        canvas.drawCircle(fX, fY, iDotRaidus, paintDot);    // 2.2ms
+  //debug purpose  //getchars2.55
+        //empty string 4.17
+        //stringfromchars 4.17
+        //intergeer to string 6.72
 
-        int iSizeText=50;
+     /*   int iSizeText=50;
         paintDot.setTextSize(iSizeText);
         canvas.drawText("x="+Float.toString(fX),100,100,paintDot);
         canvas.drawText("y="+Float.toString(fY),100,110+iSizeText,paintDot);
         canvas.drawText("θ="+Double.toString(getDegree()),100,120+iSizeText*2,paintDot);
         canvas.drawText("rate="+Double.toString(getPercent(dRotation)),100,130+iSizeText*3,paintDot);
-   }
+ */  }
 
     public double getTheta(double dCos,double dSin,double dRotation){
         dRotation=-Math.PI*dRotation/180;
